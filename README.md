@@ -10,7 +10,7 @@ The focus of my project is on energy consumption and load prediction, specifical
 
 **The Impact:** The anticipated impact of this project is twofold. Firstly, at a societal level, optimizing energy consumption in residential EV charging can contribute to overall energy efficiency and sustainability. This has the potential to reduce the carbon footprint associated with electricity generation. Secondly, from a business perspective, property managers and energy providers stand to gain by implementing more efficient and predictive energy management strategies. The quantifiable impact could include reduced energy costs, optimized infrastructure investments, and potentially a more reliable and convenient charging experience for EV users. The scale of the impact could be measured in terms of energy savings, cost reductions, and improvements in overall energy grid efficiency.
 
-## Description of a Dataset
+### Description of a Dataset
 
 Data have been collected from a large housing cooperative in Norway, with 1,113 apartments and 2,321 residents. A new infrastructure for EV charging was installed from December 2018. From December 2018 to January 2020, charging sessions were registered by 97 user IDs; 82 of these IDs appeared to be still active at the end of the period. In the data provided with this article, Central European Time (CET) zone is used
 
@@ -58,12 +58,59 @@ Energy consumption or energy load prediction refers to the use of predictive mod
 
 ## Exploratory Data Analysis (EDA):
 
-Basic EDA, getting familiar with data
+Basic EDA, getting familiar with data. 
 
 Clening, dealing with missing values and duplicates.
 
-Merging datasets 
+Merging datasets. This step was actually challenging. As i was merging 7 datasets togheter and by merging each of them I was trying fill NaN values, as some columns was identical but contained more values.
 
 Identifing Target variable and feature variables.
 
+# Feature Engineering and Further Cleaning Steps to work on
 
+#### 1. Feature Engineering
+- Extract datetime features
+
+df['hour_of_day'] = df['Start_plugin'].dt.hour
+df['day_of_week'] = df['Start_plugin'].dt.dayofweek
+df['month'] = df['Start_plugin'].dt.month
+
+#### 2. Encoding Categorical Variables
+- Example: One-hot encoding for 'User_type' column
+
+df = pd.get_dummies(df, columns=['User_type'], prefix='user_type')
+
+### 3. Correlation Analysis
+- Explore the correlation matrix
+
+correlation_matrix = df.corr()
+
+#### 4. Feature Scaling (if needed)
+- Standardize or normalize numerical features
+
+#### 5. Handling Outliers
+- Identify and handle outliers in numerical features
+
+#### 6. Check for Imbalanced Classes (if Classification)
+- Explore the distribution of classes and handle imbalances
+
+#### 7. Check for Skewed Target Variable (if Regression)
+- Address skewness if necessary using transformations
+
+#### 8. Other Steps Based on Data Characteristics
+- Any other preprocessing steps based on insights from EDA
+
+#### Update X and y after adding new features or encoding
+X = df.drop(['El_kWh'], axis=1)
+y = df['El_kWh']
+
+# Baseline Models:
+## Mean Baseline model
+- I Started with basic one. And will use it as an example to compare RMSE value to any other new models.
+## Linear Regression model / Scaled version
+- With regression model need to choose right scaling method, that will be better for my dataset. Otherwise it was no minor difference betwen Scaled and not scaled regression models.
+## Decision Tree Regressor:
+Worse than Linear regression
+## Linear regression with PCA
+- BEtter performing than others. First of all as I havent drop any higly correlated features, PCA helps here.
+- Second, I used Cross Validation and Plotted n_components to find best number of PCA components to use.
