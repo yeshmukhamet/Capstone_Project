@@ -106,7 +106,7 @@ y = df['El_kWh']
 
 # Baseline Models:
 ## Mean Baseline model
-- I Started with basic one. And will use it as an example to compare RMSE value to any other new models.
+- I Started with basic one. And will use it as an example to compare R2 score value to any other new models.
 ## Linear Regression model / Scaled version
 - With regression model need to choose right scaling method, that will be better for my dataset. Otherwise it was no minor difference betwen Scaled and not scaled regression models.
 ## Decision Tree Regressor:
@@ -114,3 +114,21 @@ Worse than Linear regression
 ## Linear regression with PCA
 - BEtter performing than others. First of all as I havent drop any higly correlated features, PCA helps here.
 - Second, I used Cross Validation and Plotted n_components to find best number of PCA components to use.
+
+# Complex Models
+## Baseline models
+- I started with Baseline Models again, tried linear regresion and models with ensemble method models. Here I defined best models to move forward.
+- Models I choosed based on R2 score metric: Random Forest Regressor and Gradient Boosting.
+## Complex Models 
+- I tuned both of the models to get best result
+- Random Forest was best model where R2 score was higher, and difference between Train and Test score was  lower, that represent good fit.
+## Back to EDA and Feature Engineering and running ML Models
+- I tried to tune EDA as well, to have better result.
+- I tried log transformation. Didn't work to have better results.
+- I tried remove outliers with Isolation Forest. Didn't work to have better results.
+- I tried 3 different Dataframes with different shape: Dataframe with dummy variables on almost every meaningfull categorical variables, Dataframe with mapping most of features, and Dataframe with reduced features to exclude correlation and multiciliniarity. 
+
+# Next steps:
+- Go back to EDA, analyze features, distribution and relatinship.
+- Feature transformation, extraction or reducation.
+- Deeplearning models
